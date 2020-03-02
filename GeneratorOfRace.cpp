@@ -9,19 +9,6 @@ Race::Race() {
 	std::getline(std::cin, name);
 	std::cin >> requiredLvl;
 
-    skillNames = { "speed", "gravity", "hp", "invis", "dmg", "freeze", "burn", "vampire", "boom", "regen", "slow", "rockets", "longjump", "mirror", "evasion", "step", "push",
-"respawn", "dropweapon", "paralyze", "blind", "poison", "illusion", "bury", "grenlauncher", "imbagrenade", "longjump2", "doublejumps", "glow", "chameleon", "attackspeed", "quickreload", "tknives", 
-"catwalk", "flicker", "obscurity", "obscurity_duck", "thirst", "splashdmg", "shaker", "losso", "repel", "clip_destroy", "takeweapon", "fear", "dmghealth", "adrenaline_rush", "clearance", "silence", "blockrespawn",
-"setangle", "drug", "beacon", "accuracy", "killhp", "kill_invis", "armor", "adrenaline", "mirror_setangle", "mirror_clip_destroy", "mirror_clip_take", "mirror_blind", "mirror_burn", "mirror_shaker",
-	"antiskill", "antiskill2", "def_", "protect"};
-	maxLvl = 501;
-	ultimates = { "teleport", "jetpack", "explode", "ultfreeze", "CreateProp", "ultgod", "webshot", "ultburn","speedbuf", "heal", "ultblind","ultremove", "ultburyme",
-"fatality", "blink", "ultswap", "ultmatrix", "chaos", "teleportator", "portals", "leap", "ult_kamikaze", "ultgod_ally", "rapidfire", "ultnorecoil", "ultaim", "ultwh", "ultrandweapon", "ultsilence",
-	"hook", "stun", "disarm", "dmgbuf", "eclipse", "ultsteal", "cashheal", "saw", "ultblind", "satanic", "mirror_shield", "diet", "locust_swarm", "locust_swarm2", "ultstealcash", "ultchain", "ultchain2",
-	"ultstomp", "ultrecline", "telekinez", "ultclearance", "rupture"};
-	enemyPart = { "head", "body" },
-		typeUlt = { "aim","random","radius" };
-
 	try {
 		GiveUlt();
 		GiveSkills();
@@ -117,7 +104,7 @@ void Race::GiveSkills() {
 }
 
 void Race::GiveParam() {
-    float duration, distance, damage, additionalDamage, common, additionalCommon, minDamage, maxDamage, multiplier, multiplier2, multiplier3, radius, delay, x, y, z;
+    float duration, distance, damage, additionalDamage, common, additionalCommon, minDamage, maxDamage, multiplier, multiplier2, radius, delay;
     int hp, change, change2, additionalChange, amount, additionalAmount, maxAmount;
 	std::string angle, accuracySkill;
 	std::vector<std::string> antiSkills = { "antiult", "antiult_ally", "antiaura" , "antiaura_ally" , "antitotem" , "antitotem_ally" , "antilasermine" , "antilasermine_ally" , "antifall" , "antiflash" , "antiflash2" , "antiparalyze" , "antifreeze" , "antibury" , "antifear" , "antipoison" , "antidrug" , "antibeacon" , "antitimebomb" , "antishake" , "antipush" , "antisetangle", "antirockets" , "antihead" , "antiwh" , "antiaim" , "antimirror" , "antipassive" },
@@ -127,14 +114,13 @@ void Race::GiveParam() {
     for (unsigned i = 0; i < usedID.size(); i++) {
 		switch (usedID[i]) {
 		case 0:
-			skillDesc.push_back("Скорость");
-			skills.push_back("speed =");
-			common = Random(80, 200);
+			common = float(Random(80, 200));
 			common /= 100;
-			additionalCommon = Random(20, 45);
+			additionalCommon = float(Random(20, 45));
 			additionalCommon /= 100;
 
-
+			skillDesc.push_back("Скорость");
+			skills.push_back("speed =");
 			skillParam.push_back(std::to_string(common) + ";" + std::to_string(common + additionalCommon) + ";" + std::to_string(common + additionalCommon * 2) + ";" + std::to_string(common + additionalCommon * 3));
 			break;
 		case 1:
@@ -497,10 +483,11 @@ void Race::GiveParam() {
 		case 37:
 			skillDesc.push_back("Зов крови");
 			skills.push_back("thirst");
-			multiplier = Random(1, 5); // Damage
-			multiplier2 = Random(5, 10); // Speed
+			multiplier = Random(3, 7); // Damage
+			multiplier /= 100;
+			multiplier2 = Random(3, 7); // Speed
 			multiplier2 /= 100;
-			amount = Random(5, 20); // HP
+			amount = Random(5, 15); // HP
 			skillParam.push_back(std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount) + ";" + std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount+Random(1,2)) + ";" + std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount+Random(2,4)) + ";" + std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount+Random(4,6)));
 			break;
 		case 38:
@@ -862,7 +849,7 @@ void Race::Output() {
 	std::ofstream file("C://Users/dredd/Desktop/Races.txt", std::ios::app);
 	if (!file)
 		exit(1);
-	file << "\n\"" + name + "\"\n\{";
+	file << "\n\"" + name + "\"\n{";
 	file << "\n\t\"required\"\t\"" + std::to_string(requiredLvl) + "\"";
 	file << "\n\t\"category\"\t\"" + category + "\"";
 	file << "\n\t\"maxlvl\"\t\"" + std::to_string(maxLvl) + "\"";
@@ -896,7 +883,7 @@ void Race::Output() {
 }
 
 void Race::Debug() {
-	std::cout << "\n\"" + name + "\"\n\{";
+	std::cout << "\n\"" + name + "\"\n{";
 	std::cout << "\n\t\"required\"\t\"" + std::to_string(requiredLvl) + "\"";
 	std::cout << "\n\t\"category\"\t\"" + category + "\"";
 	std::cout << "\n\t\"maxlvl\"\t\"" + std::to_string(maxLvl) + "\"";
@@ -961,7 +948,7 @@ void Race::GiveUlt() {
 	case 5:
 		duration = Random(3, 8);
 		ultimate = "ultgod " + std::to_string(duration);
-		ultCooldown = duration*2;
+		ultCooldown = int(duration)*2;
 		break;
 	case 6:
 		ultimate = "webshot";
@@ -1257,12 +1244,6 @@ int main() {
 	SetConsoleOutputCP(1251);
 
 	Race New;
-	/*New.GiveSkills();
-	New.GiveParam();
-	New.GiveUlt();
-	New.DefineCategory();
-	New.Output();*/
-	//New.Debug();
 
 
 
