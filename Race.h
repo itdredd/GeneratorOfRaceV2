@@ -21,7 +21,7 @@ public:
 	void GiveUlt();
 	//void ExceptionHandler();
 private:
-	std::string name, category, author, ultimate;
+	std::string name, category, ultimate;
 	int requiredLvl, maxLvl, amountSkills, ultCooldown;
 	std::vector<int> skillsID, usedID;
 	std::vector<std::string> skillNames, skillParam, skills, skillDesc, ultimates, enemyPart, typeUlt;
