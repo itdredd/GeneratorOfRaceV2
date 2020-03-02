@@ -862,7 +862,7 @@ void Race::Output() {
 	std::ofstream file("C://Users/dredd/Desktop/Races.txt", std::ios::app);
 	if (!file)
 		exit(1);
-	file << "\n\"" + name + "\"\n\{\n\t\"name\"\t\"" + name + "\"";
+	file << "\n\"" + name + "\"\n\{";
 	file << "\n\t\"required\"\t\"" + std::to_string(requiredLvl) + "\"";
 	file << "\n\t\"category\"\t\"" + category + "\"";
 	file << "\n\t\"maxlvl\"\t\"" + std::to_string(maxLvl) + "\"";
@@ -896,7 +896,7 @@ void Race::Output() {
 }
 
 void Race::Debug() {
-	std::cout << "\n\"" + name + "\"\n\{\n\t\"name\"\t\"" + name + "\"";
+	std::cout << "\n\"" + name + "\"\n\{";
 	std::cout << "\n\t\"required\"\t\"" + std::to_string(requiredLvl) + "\"";
 	std::cout << "\n\t\"category\"\t\"" + category + "\"";
 	std::cout << "\n\t\"maxlvl\"\t\"" + std::to_string(maxLvl) + "\"";
