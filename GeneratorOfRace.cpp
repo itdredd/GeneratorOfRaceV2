@@ -961,7 +961,7 @@ void Race::GiveUlt() {
 	case 5:
 		duration = Random(3, 8);
 		ultimate = "ultgod " + std::to_string(duration);
-		ultCooldown = duration*1.5;
+		ultCooldown = duration*2;
 		break;
 	case 6:
 		ultimate = "webshot";
