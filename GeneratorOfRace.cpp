@@ -58,14 +58,15 @@ void Race::DefineCategory() {
 int Race::Random(int min, int max) {
 
     // construct a trivial random generator engine from a time-based seed:
-    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine generator(seed);
+
+	auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine generator(seed);
 
     std::uniform_int_distribution<int> distribution(min, max);
 
     int number = distribution(generator);
 
-
+	
     return number;
 }
 
@@ -195,7 +196,7 @@ void Race::GiveParam() {
 			common /= 100;
 			additionalCommon = Random(10, 80);
 			additionalCommon /= 100;
-			change = Random(1, 80);
+			change = Random(1, 70);
 
 
 			skillParam.push_back(std::to_string(common) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 2) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 3) + " " + std::to_string(change));
@@ -381,7 +382,7 @@ void Race::GiveParam() {
 			multiplier /= 100;
 			radius = Random(80, 210); //radius multiplier
 			radius /= 100;
-			skillParam.push_back(std::to_string(amount) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount*2) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount*3) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";");
+			skillParam.push_back(std::to_string(amount) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount*2) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount*3) + " " + std::to_string(multiplier) + " " + std::to_string(radius));
 			break;
 		case 26:
 			skillDesc.push_back("Длинный прыжок 2");
@@ -483,10 +484,10 @@ void Race::GiveParam() {
 		case 37:
 			skillDesc.push_back("Зов крови");
 			skills.push_back("thirst");
-			multiplier = Random(3, 7); // Damage
-			multiplier /= 100;
-			multiplier2 = Random(3, 7); // Speed
-			multiplier2 /= 100;
+			multiplier = Random(15, 48); // Damage
+			multiplier /= 1000;
+			multiplier2 = Random(15, 48); // Speed
+			multiplier2 /= 1000;
 			amount = Random(5, 15); // HP
 			skillParam.push_back(std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount) + ";" + std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount+Random(1,2)) + ";" + std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount+Random(2,4)) + ";" + std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount+Random(4,6)));
 			break;
