@@ -36,7 +36,7 @@ private:
 		ultimates = { "teleport", "jetpack", "explode", "ultfreeze", "CreateProp", "ultgod", "webshot", "ultburn","speedbuf", "heal", "ultblind","ultremove", "ultburyme",
 "fatality", "blink", "ultswap", "ultmatrix", "chaos", "teleportator", "portals", "leap", "ult_kamikaze", "ultgod_ally", "rapidfire", "ultnorecoil", "ultaim", "ultwh", "ultrandweapon", "ultsilence",
 	"hook", "stun", "disarm", "dmgbuf", "eclipse", "ultsteal", "cashheal", "saw", "ultblind", "satanic", "mirror_shield", "diet", "locust_swarm", "locust_swarm2", "ultstealcash", "ultchain", 
-		"ultchain2", "ultstomp", "ultrecline", "telekinez", "ultclearance", "rupture" },
+		"ultchain2", "ultstomp", "ultrecline", "telekinez", "ultclearance", "rupture", "doom"},
 		enemyPart = { "head", "body" },
 		typeUlt = { "aim","random","radius" },
 		skillParam, skills, skillDesc;

@@ -168,11 +168,11 @@ void Race::GiveParam() {
 		case 5:
 			skillDesc.push_back("Заморозка");
 			skills.push_back("freeze =");
-			common = Random(80, 150);
+			common = Random(60, 100);
 			common /= 100;
-			additionalCommon = Random(10, 80);
+			additionalCommon = Random(10, 40);
 			additionalCommon /= 100;
-			change = Random(1, 80);
+			change = Random(1, 75);
 
 
 			skillParam.push_back(std::to_string(common) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 2) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 3) + " " + std::to_string(change));
@@ -310,11 +310,11 @@ void Race::GiveParam() {
 		case 19:
 			skillDesc.push_back("Паралич");
 			skills.push_back("paralyze =");
-			common = Random(80, 150);
+			common = Random(60, 100);
 			common /= 100;
-			additionalCommon = Random(10, 80);
+			additionalCommon = Random(10, 30);
 			additionalCommon /= 100;
-			change = Random(1, 80);
+			change = Random(1, 70);
 
 
 			skillParam.push_back(std::to_string(common) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 2) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 3) + " " + std::to_string(change));
@@ -1009,13 +1009,14 @@ void Race::GiveUlt() {
 		ultCooldown = Random(20, 50);
 		break;
 	case 17:
+		type = Random(0, enemyPart.size());
 		damage = Random(5, 15);
 		duration = Random(15, 25);
 		duration /= 10;
 		duration2 = Random(15, 25);
 		duration2 /= 10;
 		radius = Random(100, 250);
-		ultimate = "chaos " + std::to_string(damage) + " " + std::to_string(duration) + " " + std::to_string(duration2) + " " + std::to_string(radius);
+		ultimate = "chaos " + enemyPart[type] + " " + std::to_string(damage) + " " + std::to_string(duration) + " " + std::to_string(duration2) + " " + std::to_string(radius);
 		ultCooldown = Random(10, 15);
 		break;
 	case 18:
@@ -1232,6 +1233,17 @@ void Race::GiveUlt() {
 		duration = Random(3, 8);
 		ultimate = "rupture " + typeUlt[type] + " " + std::to_string(damage) + " " + std::to_string(damage2) + " " + std::to_string(duration);
 		ultCooldown = Random(10, 25);
+		break;
+	case 51:
+		type = Random(0, enemyPart.size());
+		damage = Random(5, 15);
+		duration = Random(15, 25);
+		duration /= 10;
+		duration2 = Random(15, 25);
+		duration2 /= 10;
+		radius = Random(100, 250);
+		ultimate = "doom " + enemyPart[type] + " " + std::to_string(duration) + " " + std::to_string(damage) + " " + std::to_string(duration2) + " " + std::to_string(radius);
+		ultCooldown = Random(10, 15);
 		break;
 	default:
 		throw std::exception("Ultimate_Error");
