@@ -268,12 +268,12 @@ void Race::GiveParam() {
 			change = Random(1, 44);
 			additionalCommon = Random(5, 8);
 
-
 			skillParam.push_back(std::to_string(int(change)) + ";" + std::to_string(int(change + additionalCommon)) + ";" + std::to_string(int(change + additionalCommon * 2)) + ";" + std::to_string(int(change + additionalCommon * 3)));
+			break;
 		case 15:
 			skillDesc.push_back("Высота шага");
 			skills.push_back("step");
-			common = Random(15, 100);
+			common = Random(8, 60);
 			additionalCommon = Random(3, 7);
 
 
@@ -387,8 +387,8 @@ void Race::GiveParam() {
 		case 26:
 			skillDesc.push_back("Длинный прыжок 2");
 			skills.push_back("longjump2 =");
-			common = Random(80, 150);
-			additionalCommon = Random(30, 50);
+			common = Random(120, 200);
+			additionalCommon = Random(40, 60);
 			delay = Random(3, 8);
 
 			skillParam.push_back(std::to_string(float(common)) + " " + std::to_string(delay) +";" + std::to_string(float(common + additionalCommon)) + " " + std::to_string(delay) + ";" + std::to_string(float(common + additionalCommon * 2)) + " " + std::to_string(delay) + ";" + std::to_string(float(common + additionalCommon * 3)) + " " + std::to_string(delay));
@@ -840,6 +840,32 @@ void Race::GiveParam() {
 			skills.push_back(protectSkills[type] + " =");
 			skillParam.push_back(std::to_string(change) + ";" + std::to_string(change + additionalChange) + ";" + std::to_string(change + additionalChange * 2) + ";" + std::to_string(change + additionalChange * 3));
 			break;
+		case 73:
+			skillDesc.push_back("Обратный прыжок");
+			skills.push_back("backjump");
+			skillParam.push_back("none");
+			break;
+		case 74:
+			change = Random(1, 44);
+			additionalCommon = Random(5, 8);
+
+			skillDesc.push_back("Невидимость радара");
+			skills.push_back("radarinvis");
+			skillParam.push_back(std::to_string(int(change)) + ";" + std::to_string(int(change + additionalCommon)) + ";" + std::to_string(int(change + additionalCommon * 2)) + ";" + std::to_string(int(change + additionalCommon * 3)));
+			break;
+		case 75:
+			skillDesc.push_back("Selfdiet");
+			skills.push_back("selfdiet");
+			skillParam.push_back("none");
+			break;
+		case 76:
+			change = Random(1, 44);
+			additionalCommon = Random(5, 8);
+
+			skillDesc.push_back("Mole");
+			skills.push_back("mole");
+			skillParam.push_back(std::to_string(int(change)) + ";" + std::to_string(int(change + additionalCommon)) + ";" + std::to_string(int(change + additionalCommon * 2)) + ";" + std::to_string(int(change + additionalCommon * 3)));
+			break;
 		default:
 			throw std::exception("Skill_Error");
 		}
@@ -1245,6 +1271,25 @@ void Race::GiveUlt() {
 		ultimate = "doom " + enemyPart[type] + " " + std::to_string(duration) + " " + std::to_string(damage) + " " + std::to_string(duration2) + " " + std::to_string(radius);
 		ultCooldown = Random(10, 15);
 		break;
+	case 52:
+		type = Random(0, enemyPart.size());
+		radius = Random(100, 250);
+		ultimate = "ult_takeoff " + enemyPart[type] + " " + std::to_string(radius);
+		ultCooldown = Random(20, 25);
+		break;
+	case 53:
+		damage = Random(5, 15);
+		duration = Random(15, 25);
+		duration /= 10;
+		amount = Random(1, 3);
+		radius = Random(150, 350);
+		ultimate = "sphere " + std::to_string(duration) + " " + std::to_string(radius) + " " + std::to_string(amount);
+		ultCooldown = Random(10, 15);
+		break;
+	case 54:
+		ultimate = "freezetele";
+		ultCooldown = Random(10, 15);
+		break;
 	default:
 		throw std::exception("Ultimate_Error");
 	}
@@ -1255,8 +1300,8 @@ void Race::GiveUlt() {
 int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-
-	Race New;
+	std::wcout << L" Ваш текст " << std::endl;
+	//Race New;
 
 
 

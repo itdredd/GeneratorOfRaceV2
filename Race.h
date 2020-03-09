@@ -32,11 +32,11 @@ private:
 "clip_destroy", "takeweapon", "fear", "dmghealth", "adrenaline_rush", "clearance", "silence", "blockrespawn",
 "setangle", "drug", "beacon", "accuracy", "killhp", "kill_invis", "armor", "adrenaline", "mirror_setangle",
 "mirror_clip_destroy", "mirror_clip_take", "mirror_blind", "mirror_burn", "mirror_shaker",
-	"antiskill", "antiskill2", "def_", "protect" },
+	"antiskill", "antiskill2", "def_", "protect", "backjump", "radarinvis", "selfdiet", "mole"},
 		ultimates = { "teleport", "jetpack", "explode", "ultfreeze", "CreateProp", "ultgod", "webshot", "ultburn","speedbuf", "heal", "ultblind","ultremove", "ultburyme",
 "fatality", "blink", "ultswap", "ultmatrix", "chaos", "teleportator", "portals", "leap", "ult_kamikaze", "ultgod_ally", "rapidfire", "ultnorecoil", "ultaim", "ultwh", "ultrandweapon", "ultsilence",
 	"hook", "stun", "disarm", "dmgbuf", "eclipse", "ultsteal", "cashheal", "saw", "ultblind", "satanic", "mirror_shield", "diet", "locust_swarm", "locust_swarm2", "ultstealcash", "ultchain", 
-		"ultchain2", "ultstomp", "ultrecline", "telekinez", "ultclearance", "rupture", "doom"},
+		"ultchain2", "ultstomp", "ultrecline", "telekinez", "ultclearance", "rupture", "doom", "ult_takeoff", "sphere", "freezetele"},
 		enemyPart = { "head", "body" },
 		typeUlt = { "aim","random","radius" },
 		skillParam, skills, skillDesc;
