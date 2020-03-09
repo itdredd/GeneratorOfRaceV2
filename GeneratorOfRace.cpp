@@ -1300,8 +1300,8 @@ void Race::GiveUlt() {
 int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	std::wcout << L" Ваш текст " << std::endl;
-	//Race New;
+
+	Race New;
 
 
 
