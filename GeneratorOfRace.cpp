@@ -10,19 +10,6 @@ Race::Race() {
 	std::getline(std::cin, name);
 	std::cin >> requiredLvl;
 
-    skillNames = { "speed", "gravity", "hp", "invis", "dmg", "freeze", "burn", "vampire", "boom", "regen", "slow", "rockets", "longjump", "mirror", "evasion", "step", "push",
-"respawn", "dropweapon", "paralyze", "blind", "poison", "illusion", "bury", "grenlauncher", "imbagrenade", "longjump2", "doublejumps", "glow", "chameleon", "attackspeed", "quickreload", "tknives", 
-"catwalk", "flicker", "obscurity", "obscurity_duck", "thirst", "splashdmg", "shaker", "losso", "repel", "clip_destroy", "takeweapon", "fear", "dmghealth", "adrenaline_rush", "clearance", "silence", "blockrespawn",
-"setangle", "drug", "beacon", "accuracy", "killhp", "kill_invis", "armor", "adrenaline", "mirror_setangle", "mirror_clip_destroy", "mirror_clip_take", "mirror_blind", "mirror_burn", "mirror_shaker",
-	"antiskill", "antiskill2", "def_", "protect"};
-	maxLvl = 501;
-	author = "GeneratorOfRace";
-	ultimates = { "teleport", "jetpack", "explode", "ultfreeze", "CreateProp", "ultgod", "webshot", "ultburn","speedbuf", "heal", "ultblind","ultremove", "ultburyme",
-"fatality", "blink", "ultswap", "ultmatrix", "chaos", "teleportator", "portals", "leap", "ult_kamikaze", "ultgod_ally", "rapidfire", "ultnorecoil", "ultaim", "ultwh", "ultrandweapon", "ultsilence",
-	"hook", "stun", "disarm", "dmgbuf", "eclipse", "ultsteal", "cashheal", "saw", "ultblind", "satanic", "mirror_shield", "diet", "locust_swarm", "locust_swarm2", "ultstealcash", "ultchain", "ultchain2",
-	"ultstomp", "ultrecline", "telekinez", "ultclearance", "rupture"};
-	enemyPart = { "head", "body" },
-		typeUlt = { "aim","random","radius" };
 
 	try {
 		GiveUlt();
@@ -43,7 +30,9 @@ Race::Race() {
 }
 
 void Race::DefineCategory() {
-	if (requiredLvl < 2010)
+	if (requiredLvl == 0)
+		category = "Дивизион для новичков";
+	else if (requiredLvl < 2010)
 		category = "Первый дивизион";
 	else if (4020 > requiredLvl && requiredLvl > 2010)
 		category = "Второй дивизион";
@@ -70,7 +59,6 @@ void Race::DefineCategory() {
 }
 
 int Race::Random(int min, int max) {
-
     // construct a trivial random generator engine from a time-based seed:
     auto seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator(seed);
@@ -84,12 +72,12 @@ int Race::Random(int min, int max) {
 }
 
 void Race::GiveSkills() {
-    amountSkills = Random(4, 15);
+    amountSkills = Random(4, 14);
 	int random = Random(1, 4);
 	if (random != 1)
 		usedID.push_back(0);
 	else 
-		amountSkills = Random(3, 10);
+		amountSkills = Random(3, 9);
     bool similar = false;
     while(usedID.size() != amountSkills) {
         unsigned int id = Random(0, skillNames.size()); //Возможны ошибки, изменил: skillNames.size()-1
@@ -111,14 +99,12 @@ void Race::GiveSkills() {
            // skills.push_back(skillNames[id]);
             usedID.push_back(id);
         }
-        
-        
     }
     
 }
 
 void Race::GiveParam() {
-    float duration, distance, damage, additionalDamage, common, additionalCommon, minDamage, maxDamage, multiplier, multiplier2, multiplier3, radius, delay, x, y, z;
+    float duration, distance, damage, additionalDamage, common, additionalCommon, minDamage, maxDamage, multiplier, multiplier2, radius, delay;
     int hp, change, change2, additionalChange, amount, additionalAmount, maxAmount;
 	std::string angle, accuracySkill;
 	std::vector<std::string> antiSkills = { "antiult", "antiult_ally", "antiaura" , "antiaura_ally" , "antitotem" , "antitotem_ally" , "antilasermine" , "antilasermine_ally" , "antifall" , "antiflash" , "antiflash2" , "antiparalyze" , "antifreeze" , "antibury" , "antifear" , "antipoison" , "antidrug" , "antibeacon" , "antitimebomb" , "antishake" , "antipush" , "antisetangle", "antirockets" , "antihead" , "antiwh" , "antiaim" , "antimirror" , "antipassive" },
@@ -128,14 +114,13 @@ void Race::GiveParam() {
     for (unsigned i = 0; i < usedID.size(); i++) {
 		switch (usedID[i]) {
 		case 0:
-			skillDesc.push_back("Скорость");
-			skills.push_back("speed =");
 			common = Random(80, 200);
 			common /= 100;
 			additionalCommon = Random(20, 45);
 			additionalCommon /= 100;
 
-
+			skillDesc.push_back("Скорость");
+			skills.push_back("speed =");
 			skillParam.push_back(std::to_string(common) + ";" + std::to_string(common + additionalCommon) + ";" + std::to_string(common + additionalCommon * 2) + ";" + std::to_string(common + additionalCommon * 3));
 			break;
 		case 1:
@@ -164,7 +149,6 @@ void Race::GiveParam() {
 			common = Random(5, 50);
 			additionalCommon = Random(5, 13);
 
-
 			skillParam.push_back(std::to_string(int(common)) + " all" + ";" + std::to_string(int(common + additionalCommon)) + " all" + ";" + std::to_string(int(common + additionalCommon * 2)) + " all" + ";" + std::to_string(int(common + additionalCommon * 3)) + " all");
 			break;
 		case 4:
@@ -176,17 +160,16 @@ void Race::GiveParam() {
 			additionalCommon /= 100;
 			change = Random(1, 80);
 
-
 			skillParam.push_back(std::to_string(common) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 2) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 3) + " " + std::to_string(change));
 			break;
 		case 5:
 			skillDesc.push_back("Заморозка");
 			skills.push_back("freeze =");
-			common = Random(80, 150);
+			common = Random(60, 100);
 			common /= 100;
-			additionalCommon = Random(10, 80);
+			additionalCommon = Random(10, 40);
 			additionalCommon /= 100;
-			change = Random(1, 80);
+			change = Random(1, 75);
 
 
 			skillParam.push_back(std::to_string(common) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 2) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 3) + " " + std::to_string(change));
@@ -210,7 +193,7 @@ void Race::GiveParam() {
 			common /= 100;
 			additionalCommon = Random(10, 80);
 			additionalCommon /= 100;
-			change = Random(1, 80);
+			change = Random(1, 70);
 
 
 			skillParam.push_back(std::to_string(common) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 2) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 3) + " " + std::to_string(change));
@@ -284,6 +267,7 @@ void Race::GiveParam() {
 
 
 			skillParam.push_back(std::to_string(int(change)) + ";" + std::to_string(int(change + additionalCommon)) + ";" + std::to_string(int(change + additionalCommon * 2)) + ";" + std::to_string(int(change + additionalCommon * 3)));
+			break;
 		case 15:
 			skillDesc.push_back("Высота шага");
 			skills.push_back("step");
@@ -324,11 +308,11 @@ void Race::GiveParam() {
 		case 19:
 			skillDesc.push_back("Паралич");
 			skills.push_back("paralyze =");
-			common = Random(80, 150);
+			common = Random(60, 100);
 			common /= 100;
 			additionalCommon = Random(10, 80);
 			additionalCommon /= 100;
-			change = Random(1, 80);
+			change = Random(1, 70);
 
 
 			skillParam.push_back(std::to_string(common) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 2) + " " + std::to_string(change) + ";" + std::to_string(common + additionalCommon * 3) + " " + std::to_string(change));
@@ -396,13 +380,13 @@ void Race::GiveParam() {
 			multiplier /= 100;
 			radius = Random(80, 210); //radius multiplier
 			radius /= 100;
-			skillParam.push_back(std::to_string(amount) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount*2) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount*3) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";");
+			skillParam.push_back(std::to_string(amount) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount*2) + " " + std::to_string(multiplier) + " " + std::to_string(radius) + ";" + std::to_string(amount+additionalAmount*3) + " " + std::to_string(multiplier) + " " + std::to_string(radius));
 			break;
 		case 26:
 			skillDesc.push_back("Длинный прыжок 2");
 			skills.push_back("longjump2 =");
-			common = Random(80, 150);
-			additionalCommon = Random(30, 50);
+			common = Random(120, 200);
+			additionalCommon = Random(40, 60);
 			delay = Random(3, 8);
 
 			skillParam.push_back(std::to_string(float(common)) + " " + std::to_string(delay) +";" + std::to_string(float(common + additionalCommon)) + " " + std::to_string(delay) + ";" + std::to_string(float(common + additionalCommon * 2)) + " " + std::to_string(delay) + ";" + std::to_string(float(common + additionalCommon * 3)) + " " + std::to_string(delay));
@@ -496,12 +480,14 @@ void Race::GiveParam() {
 			skillParam.push_back(std::to_string(delay) + " " + std::to_string(amount) + " " + std::to_string(maxAmount) + ";" + std::to_string(delay) + " " + std::to_string(amount + additionalAmount) + " " + std::to_string(maxAmount) + ";" + std::to_string(delay) + " " + std::to_string(amount + additionalAmount * 2) + " " + std::to_string(maxAmount) + ";" + std::to_string(delay) + " " + std::to_string(amount + additionalAmount * 3) + " " + std::to_string(maxAmount));
 			break;
 		case 37:
+			multiplier = Random(15, 48); // Damage
+			multiplier /= 1000;
+			multiplier2 = Random(15, 48); // Speed
+			multiplier2 /= 1000;
+			amount = Random(5, 15); // HP
+
 			skillDesc.push_back("Зов крови");
 			skills.push_back("thirst");
-			multiplier = Random(1, 5); // Damage
-			multiplier2 = Random(7, 30); // Speed
-			multiplier2 /= 100;
-			amount = Random(5, 20); // HP
 			skillParam.push_back(std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount) + ";" + std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount+Random(1,2)) + ";" + std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount+Random(2,4)) + ";" + std::to_string(multiplier) + " " + std::to_string(multiplier2) + " " + std::to_string(amount+Random(4,6)));
 			break;
 		case 38:
@@ -695,13 +681,15 @@ void Race::GiveParam() {
 			skillParam.push_back(std::to_string(change) + ";" + std::to_string(change+additionalChange) + ";" + std::to_string(change + additionalChange*2) + ";" + std::to_string(change + additionalChange*3));
 			break;
 		case 57:
-			if (Random(1, 3) == 1)
+			type = Random(1, 3);
+			if (type == 1)
 				accuracySkill = "evasion";
-			if (Random(1, 3) == 2)
+			else if (type == 2)
 				accuracySkill = "armor";
-			if (Random(1, 3) == 3)
+			else if (type == 3)
 				accuracySkill = "antihead";
-
+			else
+				throw std::exception("Accuracy_Error");
 
 			skillDesc.push_back("Игнорирование скилла");
 			skills.push_back("accuracy");
@@ -731,7 +719,7 @@ void Race::GiveParam() {
 
 			skillDesc.push_back("Сокращение отката ульты при убийстве");
 			skills.push_back("arcanum =");
-			skillParam.push_back(std::to_string(duration) + " " + std::to_string(change) + ";" + std::to_string(duration) + " " + std::to_string(change+additionalChange) + ";" + std::to_string(duration) + " " + std::to_string(change+additionalChange*2) + ";" + std::to_string(duration) + " " + std::to_string(change+additionalChange*3) + ";");
+			skillParam.push_back(std::to_string(duration) + " " + std::to_string(change) + ";" + std::to_string(duration) + " " + std::to_string(change+additionalChange) + ";" + std::to_string(duration) + " " + std::to_string(change+additionalChange*2) + ";" + std::to_string(duration) + " " + std::to_string(change+additionalChange*3));
 			break;
 		case 61:
 			change = Random(10, 50); // damage
@@ -850,6 +838,32 @@ void Race::GiveParam() {
 			skills.push_back(protectSkills[type] + " =");
 			skillParam.push_back(std::to_string(change) + ";" + std::to_string(change + additionalChange) + ";" + std::to_string(change + additionalChange * 2) + ";" + std::to_string(change + additionalChange * 3));
 			break;
+		case 73:
+			skillDesc.push_back("Обратный прыжок");
+			skills.push_back("backjump");
+			skillParam.push_back("none");
+			break;
+		case 74:
+			change = Random(1, 44);
+			additionalCommon = Random(5, 8);
+
+			skillDesc.push_back("Радар инвис");
+			skills.push_back("radarinvis");
+			skillParam.push_back(std::to_string(int(change)) + ";" + std::to_string(int(change + additionalCommon)) + ";" + std::to_string(int(change + additionalCommon * 2)) + ";" + std::to_string(int(change + additionalCommon * 3)));
+			break;
+		case 75:
+			skillDesc.push_back("Selfdiet");
+			skills.push_back("selfdiet");
+			skillParam.push_back("none");
+			break;
+		case 76:
+			change = Random(1, 44);
+			additionalCommon = Random(5, 8);
+
+			skillDesc.push_back("Mole");
+			skills.push_back("mole");
+			skillParam.push_back(std::to_string(int(change)) + ";" + std::to_string(int(change + additionalCommon)) + ";" + std::to_string(int(change + additionalCommon * 2)) + ";" + std::to_string(int(change + additionalCommon * 3)));
+			break;
 		default:
 			throw std::exception("Skill Error");
 		}
@@ -863,7 +877,7 @@ void Race::Output() {
 	std::ofstream file("C://Users/dredd/Desktop/Races.txt");
 	if (!file)
 		exit(1);
-	file << "\"" + name + "\"\n\{\n\t\"name\"\t\"" + name + "\"";
+	file << "\n\"" + name + "\"\n{";
 	file << "\n\t\"required\"\t\"" + std::to_string(requiredLvl) + "\"";
 	file << "\n\t\"author\"\t\"" + author + " " + sVersion + "\"";
 	file << "\n\t\"category\"\t\"" + category + "\"";
@@ -871,7 +885,6 @@ void Race::Output() {
 	file << "\n\t\"teamlimit\"\t\"0\"";
 	file << "\n\t\"skillamount\"\t\"" + std::to_string(amountSkills) + "\"";
 	file << "\n\t\"skilllvls\"\t\"0\"";
-	file << "\n\t\"skillsets\"\t\"4\"";
 	file << "\n\t\"skillnames\"\t\"";
 	for (int i = 0; i < amountSkills; i++) {
 		if (i != amountSkills - 1)
@@ -902,7 +915,7 @@ void Race::Debug() {
 	std::wstring buffer = version;
 	std::string sVersion(buffer.begin(), buffer.end());
 
-	std::cout << "\n\"" + name + "\"\n\{\n\t\"name\"\t\"" + name + "\"";
+	std::cout << "\n\"" + name + "\"\n{";
 	std::cout << "\n\t\"required\"\t\"" + std::to_string(requiredLvl) + "\"";
 	std::cout << "\n\t\"author\"\t\"" + author + " " + sVersion + "\"";
 	std::cout << "\n\t\"category\"\t\"" + category + "\"";
@@ -910,7 +923,6 @@ void Race::Debug() {
 	std::cout << "\n\t\"teamlimit\"\t\"0\"";
 	std::cout << "\n\t\"skillamount\"\t\"" + std::to_string(amountSkills) + "\"";
 	std::cout << "\n\t\"skilllvls\"\t\"0\"";
-	std::cout << "\n\t\"skillsets\"\t\"4\"";
 	std::cout << "\n\t\"skillnames\"\t\"";
 	for (int i = 0; i < amountSkills; i++) {
 		if (i != amountSkills - 1)
@@ -919,7 +931,7 @@ void Race::Debug() {
 			std::cout << skillDesc[i] + "\"";
 		}
 	}
-	std::cout << "\n\t\"skillDesc\"\t\"";
+	std::cout << "\n\t\"skilldesc\"\t\"";
 	for (int i = 0; i < amountSkills; i++) {
 		if (i != amountSkills - 1)
 			std::cout << skillDesc[i] + ";";
@@ -1029,13 +1041,14 @@ void Race::GiveUlt() {
 		ultCooldown = Random(20, 50);
 		break;
 	case 17:
+		type = Random(0, enemyPart.size());
 		damage = Random(5, 15);
 		duration = Random(15, 25);
 		duration /= 10;
 		duration2 = Random(15, 25);
 		duration2 /= 10;
 		radius = Random(100, 250);
-		ultimate = "chaos " + std::to_string(damage) + " " + std::to_string(duration) + " " + std::to_string(duration2) + " " + std::to_string(radius);
+		ultimate = "chaos " + enemyPart[type] + " " + std::to_string(damage) + " " + std::to_string(duration) + " " + std::to_string(duration2) + " " + std::to_string(radius);
 		ultCooldown = Random(10, 15);
 		break;
 	case 18:
@@ -1058,7 +1071,7 @@ void Race::GiveUlt() {
 		break;
 	case 22:
 		duration = Random(2, 5);
-		ultimate = "ultgod " + std::to_string(duration);
+		ultimate = "ultgod_ally " + std::to_string(duration);
 		ultCooldown = Random(20, 25);
 		break;
 	case 23:
@@ -1253,8 +1266,38 @@ void Race::GiveUlt() {
 		ultimate = "rupture " + typeUlt[type] + " " + std::to_string(damage) + " " + std::to_string(damage2) + " " + std::to_string(duration);
 		ultCooldown = Random(10, 25);
 		break;
+	case 51:
+		type = Random(0, enemyPart.size());
+		damage = Random(5, 15);
+		duration = Random(15, 25);
+		duration /= 10;
+		duration2 = Random(15, 25);
+		duration2 /= 10;
+		radius = Random(100, 250);
+		ultimate = "doom " + enemyPart[type] + " " + std::to_string(duration) + " " + std::to_string(damage) + " " + std::to_string(duration2) + " " + std::to_string(radius);
+		ultCooldown = Random(10, 15);
+		break;
+	case 52:
+		type = Random(0, enemyPart.size());
+		radius = Random(100, 250);
+		ultimate = "ult_takeoff " + enemyPart[type] + " " + std::to_string(radius);
+		ultCooldown = Random(20, 25);
+		break;
+	case 53:
+		damage = Random(5, 15);
+		duration = Random(15, 25);
+		duration /= 10;
+		amount = Random(1, 3);
+		radius = Random(150, 350);
+		ultimate = "sphere " + std::to_string(duration) + " " + std::to_string(radius) + " " + std::to_string(amount);
+		ultCooldown = Random(10, 15);
+		break;
+	case 54:
+		ultimate = "freezetele";
+		ultCooldown = Random(10, 15);
+		break;
 	default:
-		throw std::exception("Ultimate Error");
+		throw std::exception("Ultimate_Error");
 	}
 	
 
@@ -1264,18 +1307,11 @@ int main() {
 	StringCchPrintf(version, MAX_PATH, TEXT("1.0.2"));
 	StringCchPrintf(title, MAX_PATH, TEXT("Generator Of Race ver. %s"), version);
 	SetConsoleTitle(title);
+
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
 	Race New;
-	/*New.GiveSkills();
-	New.GiveParam();
-	New.GiveUlt();
-	New.DefineCategory();
-	New.Output();*/
-	//New.Debug();
-
-
 
 	return 0;
 }
