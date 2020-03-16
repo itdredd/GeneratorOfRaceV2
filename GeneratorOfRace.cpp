@@ -5,6 +5,8 @@
 TCHAR version[MAX_PATH];
 TCHAR title[MAX_PATH];
 
+#define VERSION "1.0.3"
+
 Race::Race() {
 	std::cout << "Write name and required lvl: ";
 	std::getline(std::cin, name);
@@ -830,7 +832,7 @@ void Race::GiveParam() {
 			skillParam.push_back(std::to_string(change) + " " + std::to_string(change2) + ";" + std::to_string(change + additionalChange) + " " + std::to_string(change2 + Random(1, 2)) + ";" + std::to_string(change + additionalChange * 2) + " " + std::to_string(change2 + Random(2, 3)) + ";" + std::to_string(change + additionalChange * 3) + " " + std::to_string(change2 + Random(3, 4)));
 			break;
 		case 72:
-			type = Random(0, protectSkills.size()); 
+			type = Random(0, protectSkills.size()-1); 
 			change = Random(5, 20);
 			additionalChange = Random(3, 8);
 
@@ -908,6 +910,10 @@ void Race::Output() {
 	}
 	file << "\n\t\"ultimate\"\t\"" + ultimate + "\"";
 	file << "\n\t\"cooldown\"\t\"" + std::to_string(ultCooldown) +"\"";
+	if (ability.length() != 0)
+	{	
+		file << "\n\t\"ability\"\t\"" + ability + "\"";
+	}
 	file << "\n}";
 }
 
@@ -946,6 +952,10 @@ void Race::Debug() {
 	}
 	std::cout << "\n\t\"ultimate\"\t\"" + ultimate + "\"";
 	std::cout << "\n\t\"cooldown\"\t\"" + std::to_string(ultCooldown) + "\"";
+	if (ability.length() != 0)
+	{
+		std::cout << "\n\t\"ability\"\t\"" + ability + "\"";
+	}
 	std::cout << "\n}";
 }
 
@@ -977,6 +987,7 @@ void Race::GiveUlt() {
 	case 4: 
 		ultimate = "CreateProp models/props/cs_office/vending_machine.mdl";
 		ultCooldown = Random(0, 2);
+		ability = "del";
 		break;
 	case 5:
 		duration = Random(3, 8);
@@ -997,7 +1008,7 @@ void Race::GiveUlt() {
 		speed = Random(9, 25);
 		speed /= 10;
 		duration = Random(1, 5);
-		ultimate = "speedbuf" + std::to_string(speed) + " " + std::to_string(duration);
+		ultimate = "speedbuf " + std::to_string(speed) + " " + std::to_string(duration);
 		ultCooldown = Random(7, 15);
 		break;
 	case 9:
@@ -1041,7 +1052,7 @@ void Race::GiveUlt() {
 		ultCooldown = Random(20, 50);
 		break;
 	case 17:
-		type = Random(0, enemyPart.size());
+		type = Random(0, enemyPart.size()-1);
 		damage = Random(5, 15);
 		duration = Random(15, 25);
 		duration /= 10;
@@ -1085,7 +1096,7 @@ void Race::GiveUlt() {
 		ultCooldown = Random(12, 20);
 		break;
 	case 25:
-		type = Random(0, enemyPart.size());
+		type = Random(0, enemyPart.size()-1);
 		duration = Random(1, 4);
 		ultimate = "ultaim " + enemyPart[type] + " " + std::to_string(duration);
 		ultCooldown = Random(15, 18);
@@ -1267,7 +1278,7 @@ void Race::GiveUlt() {
 		ultCooldown = Random(10, 25);
 		break;
 	case 51:
-		type = Random(0, enemyPart.size());
+		type = Random(0, enemyPart.size()-1);
 		damage = Random(5, 15);
 		duration = Random(15, 25);
 		duration /= 10;
@@ -1278,7 +1289,7 @@ void Race::GiveUlt() {
 		ultCooldown = Random(10, 15);
 		break;
 	case 52:
-		type = Random(0, enemyPart.size());
+		type = Random(0, enemyPart.size()-1);
 		radius = Random(100, 250);
 		ultimate = "ult_takeoff " + enemyPart[type] + " " + std::to_string(radius);
 		ultCooldown = Random(20, 25);
@@ -1304,7 +1315,7 @@ void Race::GiveUlt() {
 }
 	
 int main() {
-	StringCchPrintf(version, MAX_PATH, TEXT("1.0.2"));
+	StringCchPrintf(version, MAX_PATH, TEXT(VERSION));
 	StringCchPrintf(title, MAX_PATH, TEXT("Generator Of Race ver. %s"), version);
 	SetConsoleTitle(title);
 

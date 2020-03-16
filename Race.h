@@ -22,7 +22,7 @@ public:
 	void GiveUlt();
 	//void ExceptionHandler();
 private:
-	std::string name, category, author, ultimate;
+	std::string name, category, author = "Generator Of Race", ultimate, ability;
 	int requiredLvl, maxLvl = 501, amountSkills, ultCooldown;
 	std::vector<int> skillsID, usedID;
 	std::vector<std::string> skillNames = { "speed", "gravity", "hp", "invis", "dmg", "freeze", "burn",
