@@ -28,7 +28,7 @@ public:
 	//void ExceptionHandler();
 private:
 	std::string name, category, author = "GOR", ultimate, ability;
-	int requiredLvl = 0, maxLvl = 501, amountSkills = 0, riseLvl = 0;
+	int requiredLvl = 0, maxLvl = 501, amountSkills = 0, riseLvl = 1000;
 	unsigned int ultCooldown = 0;
 	std::vector<int> skillsID, usedID;
 	std::vector<std::string> skillNames = { "speed", "gravity", "hp", "invis", "dmg", "freeze", "burn",

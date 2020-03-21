@@ -53,7 +53,7 @@ void Race::GetSettings() {
 	}
 	else if(config.is_open()) {
 		boost::property_tree::ptree pt;
-		boost::property_tree::ini_parser::read_ini("config.ini", pt);
+		boost::property_tree::ini_parser::read_ini("./config.ini", pt);
 		riseLvl = pt.get<int>("Settings.RiseLevel");
 	}
 }
