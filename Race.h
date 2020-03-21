@@ -8,6 +8,9 @@
 #include <fstream>
 #include <set>
 #include <strsafe.h>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
+#include <winbase.h>
 
 
 class Race {
@@ -19,11 +22,14 @@ public:
 	void DefineCategory();
 	void Output();
 	void Debug();
+	void GetSettings();
 	void GiveUlt();
+	void Clear();
 	//void ExceptionHandler();
 private:
-	std::string name, category, author = "Generator Of Race", ultimate, ability;
-	int requiredLvl, maxLvl = 501, amountSkills, ultCooldown;
+	std::string name, category, author = "GOR", ultimate, ability;
+	int requiredLvl = 0, maxLvl = 501, amountSkills = 0, riseLvl = 0;
+	unsigned int ultCooldown = 0;
 	std::vector<int> skillsID, usedID;
 	std::vector<std::string> skillNames = { "speed", "gravity", "hp", "invis", "dmg", "freeze", "burn",
 		"vampire", "boom", "regen", "slow", "rockets", "longjump", "mirror", "evasion", "step", "push",
